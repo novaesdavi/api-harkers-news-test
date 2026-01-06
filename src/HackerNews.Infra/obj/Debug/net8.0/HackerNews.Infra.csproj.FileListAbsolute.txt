@@ -1,0 +1,16 @@
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\bin\Debug\net8.0\HackerNews.Infra.deps.json
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\bin\Debug\net8.0\HackerNews.Infra.dll
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\bin\Debug\net8.0\HackerNews.Infra.pdb
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\bin\Debug\net8.0\HackerNews.Domain.dll
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\bin\Debug\net8.0\HackerNews.Domain.pdb
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\obj\Debug\net8.0\HackerNews.Infra.csproj.AssemblyReference.cache
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\obj\Debug\net8.0\HackerNews.Infra.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\obj\Debug\net8.0\HackerNews.Infra.AssemblyInfoInputs.cache
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\obj\Debug\net8.0\HackerNews.Infra.AssemblyInfo.cs
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\obj\Debug\net8.0\HackerNews.Infra.csproj.CoreCompileInputs.cache
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\obj\Debug\net8.0\HackerNews.Infra.sourcelink.json
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\obj\Debug\net8.0\HackerNe.1F1AEE38.Up2Date
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\obj\Debug\net8.0\HackerNews.Infra.dll
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\obj\Debug\net8.0\refint\HackerNews.Infra.dll
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\obj\Debug\net8.0\HackerNews.Infra.pdb
+C:\Users\dnova\repos\api-harkers-news-test\src\HackerNews.Infra\obj\Debug\net8.0\ref\HackerNews.Infra.dll

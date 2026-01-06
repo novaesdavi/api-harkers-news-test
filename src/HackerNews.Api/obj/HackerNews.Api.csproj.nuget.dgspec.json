@@ -1,0 +1,378 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Api\\HackerNews.Api.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Api\\HackerNews.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Api\\HackerNews.Api.csproj",
+        "projectName": "HackerNews.Api",
+        "projectPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Api\\HackerNews.Api.csproj",
+        "packagesPath": "C:\\Users\\dnova\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Api\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\dnova\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Aplication\\HackerNews.Aplication.csproj": {
+                "projectPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Aplication\\HackerNews.Aplication.csproj"
+              },
+              "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Domain\\HackerNews.Domain.csproj": {
+                "projectPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Domain\\HackerNews.Domain.csproj"
+              },
+              "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Infra\\HackerNews.Infra.csproj": {
+                "projectPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Infra\\HackerNews.Infra.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.Http.Polly": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Polly": {
+              "target": "Package",
+              "version": "[7.2.4, )"
+            },
+            "Refit": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "Refit.HttpClientFactory": {
+              "target": "Package",
+              "version": "[6.4.1, )"
+            },
+            "Scrutor": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Aplication\\HackerNews.Aplication.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Aplication\\HackerNews.Aplication.csproj",
+        "projectName": "HackerNews.Aplication",
+        "projectPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Aplication\\HackerNews.Aplication.csproj",
+        "packagesPath": "C:\\Users\\dnova\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Aplication\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\dnova\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Domain\\HackerNews.Domain.csproj": {
+                "projectPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Domain\\HackerNews.Domain.csproj"
+              },
+              "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Infra\\HackerNews.Infra.csproj": {
+                "projectPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Infra\\HackerNews.Infra.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Domain\\HackerNews.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Domain\\HackerNews.Domain.csproj",
+        "projectName": "HackerNews.Domain",
+        "projectPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Domain\\HackerNews.Domain.csproj",
+        "packagesPath": "C:\\Users\\dnova\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\dnova\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Infra\\HackerNews.Infra.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Infra\\HackerNews.Infra.csproj",
+        "projectName": "HackerNews.Infra",
+        "projectPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Infra\\HackerNews.Infra.csproj",
+        "packagesPath": "C:\\Users\\dnova\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Infra\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\dnova\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Domain\\HackerNews.Domain.csproj": {
+                "projectPath": "C:\\Users\\dnova\\repos\\api-harkers-news-test\\src\\HackerNews.Domain\\HackerNews.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.Http.Polly": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Polly": {
+              "target": "Package",
+              "version": "[7.2.4, )"
+            },
+            "Refit": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "Serilog.Extensions.Logging": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
