@@ -13,7 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.Console()
-    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
 builder.Host.UseSerilog();
@@ -33,7 +32,6 @@ builder.Services.AddSingleton<Serilog.ILogger>(Log.Logger);
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IStoryRepository, HackerNewsStoryRepository>();
 builder.Services.AddScoped<CachedStoryRepository>();
-// decorate the HackerNewsStoryRepository with caching layer
 builder.Services.Decorate<IStoryRepository, CachedStoryRepository>();
 builder.Services.AddScoped<IGetStoriesUseCase, GetStoriesUseCase>();
 

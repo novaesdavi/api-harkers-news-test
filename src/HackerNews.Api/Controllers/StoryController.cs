@@ -1,6 +1,7 @@
 using HackerNews.Aplication.UseCases.GetStories;
 using HackerNews.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
 
 namespace HackerNews.Api.Controllers;
 
@@ -19,9 +20,7 @@ public class StoryController : ControllerBase
     public async Task<IActionResult> GetBestStories([FromQuery] int n = 10, CancellationToken cancellationToken = default)
     {
         if (n <= 0) return BadRequest("n must be greater than 0");
-
-        var stories = await _useCase.Handle(new GetStoriesRequest(n), cancellationToken);
-
+        var stories = await _useCase.HandleAsync(new GetStoriesRequest(n), cancellationToken);
         return Ok(stories);
     }
 }
