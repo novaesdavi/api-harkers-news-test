@@ -7,7 +7,7 @@ namespace HackerNews.Infra.Repositories;
 
 public class CachedStoryRepository : IStoryRepository
 {
-    private readonly IStoryRepository _inner; // the decorated implementation
+    private readonly IStoryRepository _inner;
     private readonly IHackerNewsApi _api;
     private readonly ILogger _logger;
     private readonly IMemoryCache _cache;
@@ -20,7 +20,7 @@ public class CachedStoryRepository : IStoryRepository
         _cache = cache;
     }
 
-    public async Task<IEnumerable<Story>> BestStories(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Story>> BestStoriesAsync(CancellationToken cancellationToken = default)
     {
         try
         {
@@ -30,7 +30,7 @@ public class CachedStoryRepository : IStoryRepository
                 return await _api.GetBestStoriesIds();
             });
 
-            var semaphore = new SemaphoreSlim(10);
+            var semaphore = new SemaphoreSlim(Environment.ProcessorCount * 2);
             var tasks = ids.Select(async id =>
             {
                 var cacheKey = $"item_{id}";
@@ -65,15 +65,7 @@ public class CachedStoryRepository : IStoryRepository
         catch (Exception ex)
         {
             _logger.Error(ex, "Error fetching best stories (cached)");
-            // as a fallback, call inner implementation
-            try
-            {
-                return await _inner.BestStories(cancellationToken);
-            }
-            catch
-            {
-                throw;
-            }
+            throw;
         }
     }
 }

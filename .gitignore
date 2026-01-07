@@ -5,6 +5,7 @@
 # Build outputs
 /bin/
 /obj/
+**/obj/
 /out/
 artifacts/
 

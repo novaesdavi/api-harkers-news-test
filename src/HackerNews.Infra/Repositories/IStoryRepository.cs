@@ -4,5 +4,5 @@ namespace HackerNews.Infra.Repositories;
 
 public interface IStoryRepository
 {
-    Task<IEnumerable<Story>> BestStories(CancellationToken cancellationToken = default);
+    Task<IEnumerable<Story>> BestStoriesAsync(CancellationToken cancellationToken = default);
 }

@@ -1,5 +1,6 @@
 using HackerNews.Domain.Entities;
 using HackerNews.Infra.Services;
+using Polly;
 using Serilog;
 
 namespace HackerNews.Infra.Repositories;
@@ -15,38 +16,70 @@ public class HackerNewsStoryRepository : IStoryRepository
         _logger = logger;
     }
 
-    public async Task<IEnumerable<Story>> BestStories(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Story>> BestStoriesAsync(CancellationToken cancellationToken = default)
     {
         try
         {
             var ids = await _api.GetBestStoriesIds();
+            _logger.Information($"IdsCount: {ids?.Count()}");
 
-            var semaphore = new SemaphoreSlim(10);
-            var tasks = ids.Select(async id =>
+            
+
+
+            //SemaphoreSlim to limit concurrency works like Parallel.ForEachAsync
+            //Just keeping the old code for reference
+
+            //var semaphore = new SemaphoreSlim(Environment.ProcessorCount * 2);
+            //var tasks = ids.Select(async id =>
+            //{
+            //    await semaphore.WaitAsync(cancellationToken);
+            //    try
+            //    {
+
+            //        var item = await _api.GetItem(id, cancellationToken);
+            //        if (item == null) return null;
+            //        return new Story
+            //        {
+            //            Title = item.Title,
+            //            Uri = item.Url,
+            //            PostedBy = item.By,
+            //            Time = DateTimeOffset.FromUnixTimeSeconds(item.Time ?? 0).UtcDateTime,
+            //            Score = item.Score ?? 0,
+            //            CommentCount = item.Descendants ?? 0
+            //        };
+            //    }
+            //    finally
+            //    {
+            //        semaphore.Release();
+            //    }
+            //});
+
+            var options = new ParallelOptions
             {
-                await semaphore.WaitAsync(cancellationToken);
-                try
+                MaxDegreeOfParallelism = Environment.ProcessorCount * 2
+            };
+
+            List<Story> results = new List<Story>();
+
+            await Parallel.ForEachAsync(ids, options, async (id, ct) =>
+            {
+                var item = await _api.GetItem(id, cancellationToken);
+                if (item == null) return;
+                results.Add( new Story
                 {
-                    var item = await _api.GetItem(id, cancellationToken);
-                    if (item == null) return null;
-                    return new Story
-                    {
-                        Title = item.Title,
-                        Uri = item.Url,
-                        PostedBy = item.By,
-                        Time = DateTimeOffset.FromUnixTimeSeconds(item.Time ?? 0).UtcDateTime,
-                        Score = item.Score ?? 0,
-                        CommentCount = item.Descendants ?? 0
-                    };
-                }
-                finally
-                {
-                    semaphore.Release();
-                }
+                    Title = item.Title,
+                    Uri = item.Url,
+                    PostedBy = item.By,
+                    Time = DateTimeOffset.FromUnixTimeSeconds(item.Time ?? 0).UtcDateTime,
+                    Score = item.Score ?? 0,
+                    CommentCount = item.Descendants ?? 0
+                });
             });
 
-            var results = await Task.WhenAll(tasks);
-            return results.Where(r => r != null)!.Cast<Story>();
+            return results;
+
+            //var results = await Task.WhenAll(tasks);
+            //return results.Where(r => r != null)!.Cast<Story>();
         }
         catch (Exception ex)
         {
