@@ -30,10 +30,10 @@ builder.Services.AddRefitClient<IHackerNewsApi>()
 builder.Services.AddSingleton<Serilog.ILogger>(Log.Logger);
 
 builder.Services.AddMemoryCache();
-builder.Services.AddScoped<IStoryRepository, HackerNewsStoryRepository>();
+builder.Services.AddScoped<IStoryRepository, StoryRepository>();
 builder.Services.AddScoped<CachedStoryRepository>();
 builder.Services.Decorate<IStoryRepository, CachedStoryRepository>();
-builder.Services.AddScoped<IGetStoriesUseCase, GetStoriesUseCase>();
+builder.Services.AddScoped<IGetStoriesUseCase, GetBestStoriesUseCase>();
 
 var app = builder.Build();
 
