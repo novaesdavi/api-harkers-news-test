@@ -4,5 +4,5 @@ namespace HackerNews.Aplication.UseCases.GetStories;
 
 public interface IGetStoriesUseCase
 {
-    Task<IEnumerable<Story>> HandleAsync(GetStoriesRequest request, CancellationToken cancellationToken = default);
+    Task<IEnumerable<Story>> HandleAsync(CancellationToken cancellationToken = default);
 }

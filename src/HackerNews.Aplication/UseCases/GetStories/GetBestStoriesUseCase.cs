@@ -12,12 +12,12 @@ public class GetBestStoriesUseCase : IGetStoriesUseCase
         _repository = repository;
     }
 
-    public async Task<IEnumerable<Story>> HandleAsync(GetStoriesRequest request, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Story>> HandleAsync(CancellationToken cancellationToken = default)
     {
         //var stories = await _repository.BestStoriesWithNoParalelism(cancellationToken);
 
         var stories = await _repository.BestStoriesAsync(cancellationToken);
 
-        return stories.OrderByDescending(s => s.Score).Take(request.N);
+        return stories;
     }
 }

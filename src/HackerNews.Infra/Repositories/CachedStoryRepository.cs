@@ -20,6 +20,55 @@ public class CachedStoryRepository : IStoryRepository
         _cache = cache;
     }
 
+    public async Task<IEnumerable<int>> GetBestStoriesIdsAsync(CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var ids = await _cache.GetOrCreateAsync("BestStoriesIds", async entry =>
+            {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(300);
+                return (await _inner.GetBestStoriesIdsAsync(cancellationToken)).ToArray();
+            });
+
+            return ids;
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error fetching best stories ids (cached)");
+            throw;
+        }
+    }
+
+    public async Task<IEnumerable<Story>> BestStoriesByIdAsync(IEnumerable<int> ids, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            if (ids == null) return Enumerable.Empty<Story>();
+
+            var semaphore = new SemaphoreSlim(Environment.ProcessorCount * 4);
+            var tasks = ids.Select(async id =>
+            {
+                await semaphore.WaitAsync(cancellationToken);
+                try
+                {
+                    return await BestStoriesWithNoParalelismAsync(id, cancellationToken);
+                }
+                finally
+                {
+                    semaphore.Release();
+                }
+            });
+
+            var results = await Task.WhenAll(tasks);
+            return results.Where(r => r != null)!.Cast<Story>();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error fetching best stories (cached)");
+            throw;
+        }
+    }
+
     public async Task<IEnumerable<Story>> BestStoriesAsync(CancellationToken cancellationToken = default)
     {
         try
@@ -40,18 +89,38 @@ public class CachedStoryRepository : IStoryRepository
         }
     }
 
-    public async Task<IEnumerable<Story>> BestStoriesWithNoParalelism(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Story>> BestStoriesWithNoParalelismAsync(CancellationToken cancellationToken = default)
     {
         try
         {
             var stories = await _cache.GetOrCreateAsync("BestStories", async entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(300);
-                var list = (await _inner.BestStoriesWithNoParalelism(cancellationToken)).ToList();
+                var list = (await _inner.BestStoriesWithNoParalelismAsync(cancellationToken)).ToList();
                 return list;
             });
 
             return stories;
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error fetching best stories (cached)");
+            throw;
+        }
+    }
+
+
+    public async Task<Story> BestStoriesWithNoParalelismAsync(int id, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var story = await _cache.GetOrCreateAsync($"story_id_{id}", async entry =>
+            {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(300);
+                return (await _inner.BestStoriesWithNoParalelismAsync(id, cancellationToken));
+
+            });
+            return story;
         }
         catch (Exception ex)
         {
