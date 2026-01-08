@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "4d160361-f3a6-4ef5-9cb9-1f693a407890",
+		"name": "HackerNews",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1682752"
+	},
+	"item": [
+		{
+			"name": "Best n stories kestrel",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44399/v0/story/beststories?n=10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44399",
+					"path": [
+						"v0",
+						"story",
+						"beststories"
+					],
+					"query": [
+						{
+							"key": "n",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Best n Stories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5012/v0/story/beststories?n=100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5012",
+					"path": [
+						"v0",
+						"story",
+						"beststories"
+					],
+					"query": [
+						{
+							"key": "n",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Best All Stories - Just Compare",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5012/v0/story/beststories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5012",
+					"path": [
+						"v0",
+						"story",
+						"beststories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HackerNews BestStories Ids",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://hacker-news.firebaseio.com/v0/beststories.json",
+					"protocol": "https",
+					"host": [
+						"hacker-news",
+						"firebaseio",
+						"com"
+					],
+					"path": [
+						"v0",
+						"beststories.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HackerNews Story by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://hacker-news.firebaseio.com/v0/item/46504963.json",
+					"protocol": "https",
+					"host": [
+						"hacker-news",
+						"firebaseio",
+						"com"
+					],
+					"path": [
+						"v0",
+						"item",
+						"46504963.json"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

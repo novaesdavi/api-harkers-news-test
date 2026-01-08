@@ -12,6 +12,18 @@ dotnet build
 # run the API on http://localhost:5012$env:ASPNETCORE_URLS = 'http://localhost:5012'
 dotnet run --project src/HackerNews.Api/HackerNews.Api.csproj
 ```
+## How to run
+
+### Use curl or collection
+
+**Curl**
+```powershell
+# test using curl
+curl -X GET "http://localhost:5012/v0/story/beststories?n=100"
+```
+
+**Collection**
+[HackerNews.postman_collection.](./doc/collection/HackerNews.postman_collection.json)
 
 ## Premises
 
