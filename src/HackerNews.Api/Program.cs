@@ -33,8 +33,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IStoryRepository, StoryRepository>();
 builder.Services.AddScoped<CachedStoryRepository>();
 builder.Services.Decorate<IStoryRepository, CachedStoryRepository>();
-builder.Services.AddScoped<IGetStoriesUseCase, GetBestStoriesUseCase>();
-builder.Services.AddScoped<IGetBestTopStoriesUseCase, GetBestTopStoriesUseCase>();
+builder.Services.AddScoped<IGetBestStoriesUseCase, GetBestStoriesUseCase>();
 
 var app = builder.Build();
 

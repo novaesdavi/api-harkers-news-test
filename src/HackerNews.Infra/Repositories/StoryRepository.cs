@@ -31,7 +31,7 @@ public class StoryRepository : IStoryRepository
         }
     }
 
-    public async Task<Story> BestStoriesWithNoParalelismAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<Story> BestStoriesAsync(int id, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -55,78 +55,13 @@ public class StoryRepository : IStoryRepository
             throw;
         }
     }
-
-
-    public async Task<IEnumerable<Story>> BestStoriesWithNoParalelismAsync(CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            var ids = await _api.GetBestStoriesIds();
-            _logger.Information($"IdsCount: {ids?.Count()}");
-
-            List<Story> results = new List<Story>();
-            foreach (var id in ids)
-            {
-                var item = await _api.GetItem(id, cancellationToken);
-                results.Add(new Story
-                {
-                    Title = item.Title,
-                    Uri = item.Url,
-                    PostedBy = item.By,
-                    Time = DateTimeOffset.FromUnixTimeSeconds(item.Time ?? 0).UtcDateTime,
-                    Score = item.Score ?? 0,
-                    CommentCount = item.Descendants ?? 0
-                });
-            }
-            return results;
-
-        }
-        catch (Exception ex)
-        {
-            _logger.Error(ex, "Error fetching best stories");
-            throw;
-        }
-    }
-
     public async Task<IEnumerable<Story>> BestStoriesAsync(CancellationToken cancellationToken = default)
     {
         try
         {            
             var ids = await _api.GetBestStoriesIds();
-            //_logger.Information($"IdsCount: {ids?.Count()}");
 
-            //SemaphoreSlim to limit concurrency works like Parallel.ForEachAsync
-            //Just keeping the old code for reference
-
-            //_logger.Information($"Processing with MaxDegreeOfParallelism: {Environment.ProcessorCount * 2}");
-
-            //var options = new ParallelOptions
-            //{
-            //    MaxDegreeOfParallelism = Environment.ProcessorCount * 2
-            //};
-            //if (ids == null) return Enumerable.Empty<Story>();
-
-            //var resultsBag = new ConcurrentBag<Story>();
-
-            //await Parallel.ForEachAsync(ids, options, async (id, ct) =>
-            //{
-            //    var item = await _api.GetItem(id, ct);
-            //    if (item == null) return;
-            //    resultsBag.Add(new Story
-            //    {
-            //        Title = item.Title,
-            //        Uri = item.Url,
-            //        PostedBy = item.By,
-            //        Time = DateTimeOffset.FromUnixTimeSeconds(item.Time ?? 0).UtcDateTime,
-            //        Score = item.Score ?? 0,
-            //        CommentCount = item.Descendants ?? 0
-            //    });
-            //});
-
-            //return resultsBag.ToList();
-
-
-            var semaphore = new SemaphoreSlim(Environment.ProcessorCount * 4);
+            var semaphore = new SemaphoreSlim(Environment.ProcessorCount * 2);
             var tasks = ids.Select(async id =>
             {
                 await semaphore.WaitAsync(cancellationToken);
@@ -162,13 +97,13 @@ public class StoryRepository : IStoryRepository
     }
 
 
-    public async Task<IEnumerable<Story>> BestStoriesByIdAsync(IEnumerable<int> ids, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Story>> BestStoriesAsync(IEnumerable<int> ids, CancellationToken cancellationToken = default)
     {
         try
         {
             if (ids == null) return Enumerable.Empty<Story>();
 
-            var semaphore = new SemaphoreSlim(Environment.ProcessorCount * 4);
+            var semaphore = new SemaphoreSlim(Environment.ProcessorCount * 2);
 
             var tasks = ids.Select(async id =>
             {

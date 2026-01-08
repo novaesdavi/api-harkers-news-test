@@ -9,25 +9,20 @@ namespace HackerNews.Api.Controllers;
 [Route("v0/[controller]")]
 public class StoryController : ControllerBase
 {
-    private readonly IGetStoriesUseCase _storiesUseCase;
-    private readonly IGetBestTopStoriesUseCase _topStoriesUseCase;
+    private readonly IGetBestStoriesUseCase _storiesUseCase;
 
-    public StoryController(IGetStoriesUseCase storiesUseCase, IGetBestTopStoriesUseCase topStoriesUseCase)
+
+    public StoryController(IGetBestStoriesUseCase storiesUseCase)
     {
         _storiesUseCase = storiesUseCase;
-        _topStoriesUseCase = topStoriesUseCase;
     }
 
 
     [HttpGet("beststories")]
     public async Task<IActionResult> GetBestTopStories([FromQuery] int n = 0, CancellationToken cancellationToken = default)
     {
-        if (n <= 0)
-        {
-           var storiesTodas = await _storiesUseCase.HandleAsync(cancellationToken);
-            return Ok(storiesTodas);
-        }
-        var stories = await _topStoriesUseCase.HandleAsync(new GetStoriesRequest(n), cancellationToken);
-        return Ok(stories);
+           var stories = await _storiesUseCase.HandleAsync(new GetStoriesRequest(n), cancellationToken);
+            return Ok(stories);
+
     }
 }

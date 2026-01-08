@@ -3,7 +3,7 @@ using HackerNews.Infra.Repositories;
 
 namespace HackerNews.Aplication.UseCases.GetStories;
 
-public class GetBestStoriesUseCase : IGetStoriesUseCase
+public class GetBestStoriesUseCase : IGetBestStoriesUseCase
 {
     private readonly IStoryRepository _repository;
 
@@ -12,12 +12,25 @@ public class GetBestStoriesUseCase : IGetStoriesUseCase
         _repository = repository;
     }
 
-    public async Task<IEnumerable<Story>> HandleAsync(CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Story>> HandleAsync(GetStoriesRequest request, CancellationToken cancellationToken = default)
     {
-        //var stories = await _repository.BestStoriesWithNoParalelism(cancellationToken);
 
-        var stories = await _repository.BestStoriesAsync(cancellationToken);
+        if (request.N <= 0)
+        {
+            var stories = await _repository.BestStoriesAsync(cancellationToken);
+            return stories.OrderByDescending(s => s.Score).Take(request.N);
+        }
+        else if (request.N >= 1)
+        {
+            var storiesId = await _repository.GetBestStoriesIdsAsync(cancellationToken);
 
-        return stories;
+            var idsToFetch = storiesId.Take(request.N).ToArray();
+
+            var stories = await _repository.BestStoriesAsync(idsToFetch, cancellationToken);
+            return stories.OrderByDescending(s => s.Score).Take(request.N);
+
+        }
+
+        return Enumerable.Empty<Story>();
     }
 }

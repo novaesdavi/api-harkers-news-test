@@ -39,19 +39,19 @@ public class CachedStoryRepository : IStoryRepository
         }
     }
 
-    public async Task<IEnumerable<Story>> BestStoriesByIdAsync(IEnumerable<int> ids, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Story>> BestStoriesAsync(IEnumerable<int> ids, CancellationToken cancellationToken = default)
     {
         try
         {
             if (ids == null) return Enumerable.Empty<Story>();
 
-            var semaphore = new SemaphoreSlim(Environment.ProcessorCount * 4);
+            var semaphore = new SemaphoreSlim(Environment.ProcessorCount * 2);
             var tasks = ids.Select(async id =>
             {
                 await semaphore.WaitAsync(cancellationToken);
                 try
                 {
-                    return await BestStoriesWithNoParalelismAsync(id, cancellationToken);
+                    return await BestStoriesAsync(id, cancellationToken);
                 }
                 finally
                 {
@@ -89,35 +89,14 @@ public class CachedStoryRepository : IStoryRepository
         }
     }
 
-    public async Task<IEnumerable<Story>> BestStoriesWithNoParalelismAsync(CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            var stories = await _cache.GetOrCreateAsync("BestStories", async entry =>
-            {
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(300);
-                var list = (await _inner.BestStoriesWithNoParalelismAsync(cancellationToken)).ToList();
-                return list;
-            });
-
-            return stories;
-        }
-        catch (Exception ex)
-        {
-            _logger.Error(ex, "Error fetching best stories (cached)");
-            throw;
-        }
-    }
-
-
-    public async Task<Story> BestStoriesWithNoParalelismAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<Story> BestStoriesAsync(int id, CancellationToken cancellationToken = default)
     {
         try
         {
             var story = await _cache.GetOrCreateAsync($"story_id_{id}", async entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(300);
-                return (await _inner.BestStoriesWithNoParalelismAsync(id, cancellationToken));
+                return (await _inner.BestStoriesAsync(id, cancellationToken));
 
             });
             return story;
