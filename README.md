@@ -1,80 +1,126 @@
 # Harkers News Test
 
-## Premisses
+## How to run
 
--   There are 200 Ids in the list of the best stories
--   Environment with 8 vCPUs
--   Main Target: Protect the API from overload and high frequency of troghput
--   Addcional Targets:
-    -   Low latency and near to real time
-    -   The API will be REST, but it won`t folow the patterns needed to become REST FULL
--   Solution:
-    -   Only one route with the path /v0/story/beststories.
-    -   Clean Architecture to organize the api
-    -   Refit to set the HttpClients
-    -   A tree of execution to present the execution without the n parameter
-    -   To paralelism add the SemaphoreSlim pattern, but I could use the ParallelOptions
-    -   Concurrent requests are limited to vCPU * 2 to balance the processes
-    -   InMemoryCache with 300 seconds to expiration was added to increase the perfomance
--   Solutions that could be added
-    -    The API gateway should also has the max TPS configured in order to throttling the requests
-    -   Apply Autoscale  in the cluster using CPU usage as metric
-    -   Add Patterns like
-        -   Notification to control business rules
-        -   Polly to implement CircuitBreaker with retries and HeavyConcurrency policy to queue what exceeds the permited limit
+Follow these steps to build and run the API from the console. Examples show PowerShell (Windows) and Bash (cross-platform). The API examples in this README assume the app listens on port 5012.
 
-### Requests Without parallelism
+**PowerShell (Windows):**
 
-**Target:** Getting all best stories with no N parameter and without parallelism
+```powershell
+# from repository rootdotnet build# run the API on http://localhost:5012$env:ASPNETCORE_URLS = 'http://localhost:5012'dotnet run --project src/HackerNews.Api/HackerNews.Api.csproj
+```
 
-E.g: GET [http://localhost:5012/v0/story/beststories](http://localhost:5012/v0/story/beststories "http://localhost:5012/v0/story/beststories")
+## Premises
 
-Amout of requests using postman: 10 times
+-   There are 200 IDs in the list of best stories.
+-   Environment with 8 vCPUs.
+-   **Main target:** Protect the API from overload and high-frequency throughput.
+-   **Additional targets:**
+    -   Low latency and near real-time responses.
+    -   The API will be REST-based, but it will not follow all the patterns required to be fully RESTful.
+-   **Solution:**
+    -   A single route with the path `/v0/story/beststories`.
+    -   Clean Architecture to organize the API.
+    -   Refit to configure the HttpClients.
+    -   An execution tree to handle requests without the `n` parameter.
+    -   For parallelism, the `SemaphoreSlim` pattern was added, although `ParallelOptions` could also be used.
+    -   Concurrent requests are limited to `vCPU * 2` to balance processing.
+    -   An in-memory cache with a 300-second expiration was added to improve performance.
+-   **Solutions that could be added:**
+    -   The API Gateway should also have a maximum TPS configured to throttle requests.
+    -   Apply autoscaling in the cluster using CPU usage as the metric.
+    -   Add patterns such as:
+        -   Notification pattern to control business rules.
+        -   Polly to implement a Circuit Breaker with retries and a heavy-concurrency policy to queue requests that exceed the permitted limit.
 
-#### Latency:
+---
 
-- 1 request (without cache): between 32.4 seconds and 32.9 seconds
-- 2 request (with cached data) : between 41 ms and 69 ms
+## Tests to undertand the routes
 
-### Requests With parallelism
+Scenario
 
-**Target:** Getting all best stories with no N parameter and WITH parallelism
+Parallelism
 
-E.g: GET [http://localhost:5012/v0/story/beststories](http://localhost:5012/v0/story/beststories "http://localhost:5012/v0/story/beststories")
+Threads
 
-Amout of requests using postman: 10 times
+Endpoint
 
-#### Latency:
+Requests
 
-- 1 request (without cache): between 4 seconds and 6 seconds  
-- 2 request (with cached data) : between 64 ms and 200 ms
+First Request (No Cache)
 
-#### Latency:
+Second Request (Cached)
 
-**Target:** Testing the increase to **the max of threads till 32 -  4 for each CPU**
+All best stories (no `N` param)
 
-**Amout of requests using postman: 10 times**
+No
 
-- 1 request (without cache): between 3.28 seconds and 4 seconds  
-- 2 request (with cached data) : between 41 ms and 100 ms
+16 (2 per CPU)
 
-**Target:** Getting best stories using the N parameter and WITH parallelism
+`/v0/story/beststories`
 
-E.g: GET [http://localhost:5012/v0/story/beststories?n=10](http://localhost:5012/v0/story/beststories?n=10 "http://localhost:5012/v0/story/beststories?n=10")
+10
 
-Amout of requests using postman: 10 times
+32.4s – 32.9s
 
-#### Latency:
+41ms – 69ms
 
-- 1 request (without cache): between 1.52 seconds and 1.70 seconds  
-- 2 request (with cached data) : between 50 ms and 65ms
+All best stories (no `N` param)
 
-#### Latency:
+Yes
 
-**Target:** Getting best stories using the N parameter and increasing **the max of threads till 32 -  4 for each CPU**
+16 (2 per CPU)
 
-**Amout of requests using postman: 10 times**
+`/v0/story/beststories`
 
-- 1 request (without cache): between 1.52 seconds and 1.70 seconds  
-- 2 request (with cached data) : between 56 ms and 76 ms
+10
 
+4s – 6s
+
+64ms – 200ms
+
+All best stories (no `N` param)
+
+Yes
+
+32 (4 per CPU)
+
+`/v0/story/beststories`
+
+10
+
+3.28s – 4s
+
+41ms – 100ms
+
+Best stories (`N = 10`)
+
+Yes
+
+16 (2 per CPU)
+
+`/v0/story/beststories?n=10`
+
+10
+
+1.52s – 1.70s
+
+50ms – 65ms
+
+Best stories (`N = 10`)
+
+Yes
+
+32 (4 per CPU)
+
+`/v0/story/beststories?n=10`
+
+10
+
+1.52s – 1.70s
+
+56ms – 76ms
+
+## Performance Test
+
+![RequestMetricsTable](./doc/images/RequestMetricsTable.png)![ResponseTime](./doc/images/ResponseTime.png)![Throughput](./doc/images/Throughput.png)
