@@ -7,7 +7,10 @@ Follow these steps to build and run the API from the console. Examples show Powe
 **PowerShell (Windows):**
 
 ```powershell
-# from repository rootdotnet build# run the API on http://localhost:5012$env:ASPNETCORE_URLS = 'http://localhost:5012'dotnet run --project src/HackerNews.Api/HackerNews.Api.csproj
+# from repository root
+dotnet build
+# run the API on http://localhost:5012$env:ASPNETCORE_URLS = 'http://localhost:5012'
+dotnet run --project src/HackerNews.Api/HackerNews.Api.csproj
 ```
 
 ## Premises
@@ -37,90 +40,17 @@ Follow these steps to build and run the API from the console. Examples show Powe
 
 ## Tests to undertand the routes
 
-Scenario
+| Scenario | Parallelism | Threads | Endpoint | Requests | First Request (No Cache) | Second Request (Cached) |
+|--------|-------------|---------|----------|----------|--------------------------|--------------------------|
+| All best stories (no `N`) | No | 16  (2 per CPU) | `/v0/story/beststories` | 10 | 32.4s – 32.9s | 41ms – 69ms |
+| All best stories (no `N`) | Yes | 16  (2 per CPU) | `/v0/story/beststories` | 10 | 4s – 6s | 64ms – 200ms |
+| All best stories (no `N`) | Yes | 32 (4 per CPU) | `/v0/story/beststories` | 10 | 3.28s – 4s | 41ms – 100ms |
+| Best stories (`N = 10`) | Yes | 16  (2 per CPU) | `/v0/story/beststories?n=10` | 10 | 1.52s – 1.70s | 50ms – 65ms |
+| Best stories (`N = 10`) | Yes | 32 (4 per CPU) | `/v0/story/beststories?n=10` | 10 | 1.52s – 1.70s | 56ms – 76ms |
 
-Parallelism
-
-Threads
-
-Endpoint
-
-Requests
-
-First Request (No Cache)
-
-Second Request (Cached)
-
-All best stories (no `N` param)
-
-No
-
-16 (2 per CPU)
-
-`/v0/story/beststories`
-
-10
-
-32.4s – 32.9s
-
-41ms – 69ms
-
-All best stories (no `N` param)
-
-Yes
-
-16 (2 per CPU)
-
-`/v0/story/beststories`
-
-10
-
-4s – 6s
-
-64ms – 200ms
-
-All best stories (no `N` param)
-
-Yes
-
-32 (4 per CPU)
-
-`/v0/story/beststories`
-
-10
-
-3.28s – 4s
-
-41ms – 100ms
-
-Best stories (`N = 10`)
-
-Yes
-
-16 (2 per CPU)
-
-`/v0/story/beststories?n=10`
-
-10
-
-1.52s – 1.70s
-
-50ms – 65ms
-
-Best stories (`N = 10`)
-
-Yes
-
-32 (4 per CPU)
-
-`/v0/story/beststories?n=10`
-
-10
-
-1.52s – 1.70s
-
-56ms – 76ms
 
 ## Performance Test
 
-![RequestMetricsTable](./doc/images/RequestMetricsTable.png)![ResponseTime](./doc/images/ResponseTime.png)![Throughput](./doc/images/Throughput.png)
+![RequestMetricsTable](./doc/images/RequestMetricsTable.png) <br />
+![ResponseTime](./doc/images/ResponseTime.png) <br />
+![Throughput](./doc/images/Throughput.png) <br />
