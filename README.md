@@ -12,9 +12,7 @@ dotnet build
 # run the API on http://localhost:5012$env:ASPNETCORE_URLS = 'http://localhost:5012'
 dotnet run --project src/HackerNews.Api/HackerNews.Api.csproj
 ```
-## How to run
-
-### Use curl or collection
+### How to call
 
 **Curl**
 ```powershell
