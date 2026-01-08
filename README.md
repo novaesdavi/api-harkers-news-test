@@ -3,8 +3,9 @@
 ## How to run
 
 Follow these steps to build and run the API from the console. <br />
-Download and install [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-Examples show PowerShell (Windows) and Bash (cross-platform). The API examples in this README assume the app listens on port 5012.
+Download and install [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)<br />
+Examples show PowerShell (Windows) and Bash (cross-platform). <br />
+The API examples in this README assume the app listens on port 5012. <br />
 
 **PowerShell (Windows):**
 
