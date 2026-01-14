@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.5.2.0
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11218.70 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
@@ -11,6 +11,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackerNews.Domain", "src\HackerNews.Domain\HackerNews.Domain.csproj", "{5D9FB949-8281-6BA4-4732-5812CD8F9F67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackerNews.Infra", "src\HackerNews.Infra\HackerNews.Infra.csproj", "{DC538D14-CFDF-6A8B-06C4-7FF0D1B60421}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackerNews.Test", "src\HackerNews.Test\HackerNews.Test.csproj", "{15DB0EAC-A298-720B-6E1A-00E54F2EA6D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +36,10 @@ Global
 		{DC538D14-CFDF-6A8B-06C4-7FF0D1B60421}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC538D14-CFDF-6A8B-06C4-7FF0D1B60421}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC538D14-CFDF-6A8B-06C4-7FF0D1B60421}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15DB0EAC-A298-720B-6E1A-00E54F2EA6D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15DB0EAC-A298-720B-6E1A-00E54F2EA6D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15DB0EAC-A298-720B-6E1A-00E54F2EA6D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15DB0EAC-A298-720B-6E1A-00E54F2EA6D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

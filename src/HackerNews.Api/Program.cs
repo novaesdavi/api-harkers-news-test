@@ -47,3 +47,6 @@ static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
         .HandleTransientHttpError()
         .WaitAndRetryAsync(2, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
 }
+
+// Expose Program type for WebApplicationFactory in tests
+public partial class Program { }
