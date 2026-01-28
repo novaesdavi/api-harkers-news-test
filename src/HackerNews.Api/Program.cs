@@ -7,6 +7,7 @@ using Serilog.Events;
 using Polly;
 using Polly.Extensions.Http;
 using System.Net.Http.Headers;
+using HackerNews.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,9 @@ builder.Services.Decorate<IStoryRepository, CachedStoryRepository>();
 builder.Services.AddScoped<IGetBestStoriesUseCase, GetBestStoriesUseCase>();
 
 var app = builder.Build();
+
+// Simple in-process rate limiting middleware (per-client fixed window)
+app.UseSimpleRateLimiting();
 
 app.MapControllers();
 
